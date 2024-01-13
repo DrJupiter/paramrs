@@ -1,0 +1,65 @@
+repos:
+  - repo: local
+    hooks:
+      #- id: cargo-check # not neccesary with clippy
+      #  name: Cargo Check
+      #  description: Check the package for errors
+      #  entry: cargo check
+      #  language: system
+      #  types: [rust]
+      #  pass_filenames: false
+
+      - id: cargo-test
+        name: Cargo Test
+        entry: cargo test
+        language: system
+        types: [rust]
+        pass_filenames: false
+          
+      - id: cargo-clippy
+        name: Cargo Clippy
+        entry: cargo clippy
+        language: system
+        types: [rust]
+        pass_filenames: false
+        args: ["--", "-D", "warnings"]
+
+          
+      - id: cargo-fmt
+        name: Cargo Fmt
+        entry: cargo fmt 
+        language: system
+        types: [rust]
+        pass_filenames: false
+        args: ["--check"]
+          
+      - id: cargo-doc
+        name: Cargo Doc
+        entry: cargo doc 
+        language: system
+        types: [rust]
+        args: ["--no-deps"]
+        pass_filenames: false
+          #
+          #      - id: detect-todos
+          #        name: Detect TODOs/FIXMEs
+          #        entry: sh -c '! grep -r --include=*.rs --exclude-dir=target "TODO|FIXME" .'
+          #        language: system
+          #        types: [rust]
+          #
+      - id: cargo-audit 
+        name: Cargo Audit
+        entry: cargo audit
+        language: rust
+        types: [rust]
+        require_serial: true
+        args: ['fix']
+        pass_filenames: false
+          #
+      - id: cargo-deadlinks
+        name: Cargo Deadlinks
+        entry: cargo deadlinks
+        language: rust
+        types: [rust]
+        pass_filenames: false
+          #
